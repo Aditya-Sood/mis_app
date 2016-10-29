@@ -5,13 +5,13 @@ function DbConnection() {
         connectionLimit: 100,
         host: 'localhost',
         user: 'root',
-        password: 'root',
+        password: '8800',
         database: 'mis',
         debug: false    
     });
 }
 
-DbConnection.prototype.query = function(queryStr, callback) {
+DbConnection.prototype.query = function(queryStr, params = [], callback) {
     this.pool.getConnection(function(err, connection) {
         if (err) {
             try { connection.release(); } catch(ex) {}
@@ -19,7 +19,7 @@ DbConnection.prototype.query = function(queryStr, callback) {
             return;
         }
         
-        connection.query(queryStr, function(err, rows) {
+        connection.query(queryStr,params, function(err, rows) {
             connection.release();
             callback(err, rows);
         });
