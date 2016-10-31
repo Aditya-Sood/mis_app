@@ -18,8 +18,8 @@ var userModel = {
 			else
 			{
 				var acc_creation_date = row[0].created_date;
-				encoded_password = encodePassword(password,acc_creation_date);
-				//encoded_password = password;
+				//encoded_password = encodePassword(password,acc_creation_date);
+				encoded_password = password;
 				console.log(encoded_password);
 				if(encoded_password == row[0].password)
 				{
@@ -34,30 +34,38 @@ var userModel = {
 	        	}
 			}
 		});
-	}
+	},
 
-	
+	getAllUsers: function(callback){
+		var query = "SELECT * FROM "+user_table;
+		var params = [];
+
+		db.query(query,params,function(err,result){
+			if(err){
+				callback(err,{});
+			}
+			else
+			{
+				callback(err=null,result);
+			}
+		});
+	},
+
 }
 
+
+//algorithm used to encode the password before being entered to database
 function encodePassword(password,created_date){
-	var ts = Date.parse(created_date);
-	
-	var d = new Date("2015-03-31T20:42:21.000Z");
-    
+	var ts = Date.parse(created_date);	
+	var d = new Date(created_date);    
 	var year = d.getFullYear();
 	var salt = 'ISM';
 
-	console.log(ts);
-	console.log(year);
-	console.log(salt);
-
 	var temp_hash = password + ts/1000 + salt;
-	console.log(temp_hash);
 
 	for(var i=0;i<year;i++)
 	{
 		temp_hash = crypto.createHash('md5').update(temp_hash).digest("hex");
-		console.log(temp_hash);
 	} 
 
 	return temp_hash;
@@ -88,6 +96,7 @@ function convertIntoUserObjects(rows) {
 }
 
 
+//getting all the user_details using the user id
 function getUserById(username,callback)
 {
 	var query = "SELECT u . * , d.name AS dept_name, d.type AS dept_typ FROM ( SELECT * FROM "+user_table+" NATURAL JOIN "+user_details_table+" WHERE id = ?  ) AS u, departments AS d WHERE u.dept_id = d.id";

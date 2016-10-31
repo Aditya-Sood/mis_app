@@ -73,53 +73,6 @@ User.prototype = {
         return this;
     },
 
-    getDepartment: function(){
-        return this.department;
-    },
-
-    getContactNo: function(){
-        return this.contactNo;
-    },
-
-    getAddress: function(){
-        return this.address;
-    },
-
-    getRole: function(){
-        return this.role;
-    },
-
-    getPicPath: function(){
-        return this.picpath;
-    },
-
-    getEmail: function(){
-        return this.email;
-    },
-
-    getSex: function(){
-        return this.sex;
-    },
-
-    getFirstName: function(){
-        return this.firstName;
-    },
-
-    getLastName: function(){
-        return this.lastName;
-    },
-
-    getMiddleName: function(){
-        return this.middleName;
-    },
-
-    getSalutation: function(){
-        return this.salutation;
-    },
-
-    getId:function(){
-        return this.id;
-    },
 };
 
 module.exports = User;
