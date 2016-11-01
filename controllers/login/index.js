@@ -17,6 +17,16 @@ var auth = {
 
 		// Fire a query to your DB and check if the credentials are valid
 		var dbUserObj = auth.validate(username, password,function(err,dbUserObj){
+			if(err)
+			{
+				res.status(401);
+				res.json({
+				"status": 401,
+				"err_code": 2
+				});
+				return;
+			}
+
 			if (!dbUserObj) { // If authentication fails, we send a 401 back
 				res.status(401);
 				res.json({
@@ -64,6 +74,7 @@ var auth = {
 */
 function genToken(user) {
 	delete user.password;
+
 	var expires = expiresIn(specs.get('TOKEN_EXPIRE_TIME')); // 1 minute(approx.) == 0.0006 days
 	var secret;
 	var token = jwt.encode({

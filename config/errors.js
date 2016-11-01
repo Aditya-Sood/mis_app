@@ -10,6 +10,8 @@ hmap.set(2,'invalid credentials');
 
 hmap.set(3,'token expired . Login Again');
 
+hmap.set(4,'data consistency error');
+
 
 
 
