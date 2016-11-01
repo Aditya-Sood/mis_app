@@ -63,8 +63,8 @@ var auth = {
 *(c) base64encode(hash(a+b+secret)) for checksum
 */
 function genToken(user) {
+	delete user.password;
 	var expires = expiresIn(specs.get('TOKEN_EXPIRE_TIME')); // 1 minute(approx.) == 0.0006 days
-	console.log(expires);
 	var secret;
 	var token = jwt.encode({
 		exp: expires,
@@ -79,7 +79,6 @@ function genToken(user) {
 
 function expiresIn(numDays) {
 	var dateObj = new Date();
-	console.log(dateObj.setDate(dateObj.getDate()));
 	return dateObj.setDate(dateObj.getDate() + numDays);
 }
 
