@@ -69,7 +69,7 @@ var userModel = {
 									row[0].semester = result[0].semester;
 
 									auth['1'] = row[0].auth_id;
-									auth['2'] = result.auth_id;
+									auth['2'] = result[0].auth_id;
 
 									delete row[0].auth_id;
 									row[0]['auth'] = auth;
@@ -96,8 +96,9 @@ var userModel = {
 		});
 	},
 
-	getAllUsers: function(callback){
-		var query = "SELECT * FROM "+user_table;
+	getAllUsers: function(req,res){
+		console.log("I am in get All users");
+		/*var query = "SELECT * FROM user_table WHERE id='2013JE0194' ";
 		var params = [];
 
 		db.query(query,params,function(err,result){
@@ -108,7 +109,7 @@ var userModel = {
 			{
 				callback(err=null,result);
 			}
-		});
+		});*/
 	},
 
 }
@@ -199,7 +200,7 @@ function getEmployeeDetailsById(userid,callback)
 function getStudentDetailsById(userid,callback)
 {
 	console.log(userid);
-	var query = "SELECT branch_id,course_id,semester FROM " + student_academic_details_table + " WHERE id = ?";
+	var query = "SELECT branch_id,course_id,semester,auth_id FROM " + student_academic_details_table + " WHERE id = ?";
 	console.log(query);
 	var params = [];
 	params.push(userid);

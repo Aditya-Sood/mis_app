@@ -1,6 +1,7 @@
 var jwt = require('jwt-simple');
 var userModel = require('models/user');
 var specs = require('config/specs');
+var session = require('config/session');
 
 var auth = {
 	login_user: function(req,res){
@@ -60,6 +61,13 @@ var auth = {
 			}
 		});
 	},
+
+	checkIt:function(req,res){
+		var user_session = new session(req.query.access_token);
+		console.log(user_session.payload);
+		
+		res.json({'hey':'bye'});
+	}
 }
 
 

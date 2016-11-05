@@ -1,25 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('models/user');
 var auth = require('controllers/login');
 
 /*
  * Routes that can be accessed by any one
  */
 
-router.post('/login', auth.login_user);
 
+router.post('/login', auth.login_user);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users
 */
-router.get('/api/v1/admin/users', function(req,res){
-	userModel.getAllUsers(function(err,result){
-	if(err)
-		console.log(err);
-	else
-		console.log(result);
-})});
+router.get('/api/v1/admin/users',auth.checkIt);
 /*
 router.get('/api/v1/admin/user/:id', user.getOne);
 router.post('/api/v1/admin/user/', user.create);
