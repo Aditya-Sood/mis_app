@@ -38,9 +38,27 @@ MyController.prototype = {
 			}
 		}
 	},
-
-
 }
+
+function isExistModule(module_name){
+	getAllModules(function(err,result)){
+		if(err)
+		{
+			return false;
+		}
+		else
+		{
+			for(int i=0;i<result.length;i++)
+			{
+				if(result[i].id == module_name)
+					return true;
+			}
+
+			return false;
+		}
+	}
+}
+
 
 function getAllModules(callback){
 	var query = 'SELECT * FROM ' + modules_table + 'WHERE 1';
