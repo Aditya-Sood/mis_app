@@ -6,8 +6,6 @@ var controller = require('config/my_controller');
 /*
  * Routes that can be accessed by any one
  */
-
-
 router.post('/login', auth.login_user);
 
 

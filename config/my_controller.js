@@ -4,12 +4,12 @@
 
 /*
  * It is a user defined controller that shows the module
- * according to the user authorisation
+ * according to the user authorization
  * if user is student or empoloyee or admin
  * corrosponding modules are shown
 */
 
-var Session = require(config/session);
+var Session = require('config/session');
 
 const modules_table = 'modules';
 
@@ -21,12 +21,12 @@ function MyController(params = [],token) {
 
 MyController.prototype = {
 
-	getMenu() : function(callback){
+	getMenu : function(callback){
 		console.log(params);
 		var user_id = session.getId();
 		var auths = session.getAuth();
 
-		getAllModules(function(err,result))
+		getAllModules(function(err,result)
 		{
 			if(err)
 			{
@@ -36,12 +36,14 @@ MyController.prototype = {
 			{
 				//Go to all the modules and get the auths associated with them and show to user;
 			}
-		}
+		});
 	},
 }
 
-function isExistModule(module_name){
-	getAllModules(function(err,result)){
+
+function isModuleExist(module_name){
+	
+	/*getAllModules(function(err,result){
 		if(err)
 		{
 			return false;
@@ -56,7 +58,7 @@ function isExistModule(module_name){
 
 			return false;
 		}
-	}
+	});*/
 }
 
 

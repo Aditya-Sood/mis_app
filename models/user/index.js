@@ -10,6 +10,8 @@ const user_address_table = 'user_address';
 const employee_basic_details_table = 'emp_basic_details';
 const student_academic_details_table = 'stu_academic';
 
+
+
 var userModel = {
 	validateUser: function(username,password,callback){
 		
@@ -94,22 +96,6 @@ var userModel = {
 	        	}
 			}
 		});
-	},
-
-	getAllUsers: function(req,res){
-		console.log("I am in get All users");
-		/*var query = "SELECT * FROM user_table WHERE id='2013JE0194' ";
-		var params = [];
-
-		db.query(query,params,function(err,result){
-			if(err){
-				callback(err,{});
-			}
-			else
-			{
-				callback(err=null,result);
-			}
-		});*/
 	},
 
 }
@@ -218,5 +204,3 @@ function getStudentDetailsById(userid,callback)
 }
 
 module.exports = userModel;
-
-

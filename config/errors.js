@@ -12,6 +12,10 @@ hmap.set(3,'token expired . Login Again');
 
 hmap.set(4,'data consistency error');
 
+hmap.set(5,'sql error');
+
+hmap.set(6,'Error getting data from database');
+
 
 
 
