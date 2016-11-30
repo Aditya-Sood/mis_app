@@ -1,7 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var logger = require('morgan');
+var bodyParser = require('body-parser');
 var auth = require('controllers/login');
-var controller = require('config/my_controller');
+//var controller = require('config/my_controller');
+var controllers = require('helper/controllerRegistery');
+var app = express();
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+
 
 /*
  * Routes that can be accessed by any one
@@ -13,29 +21,14 @@ router.post('/login', auth.login_user);
 /*
  * Routes that can be accessed only by authenticated & authorized users
 */
-router.get('/api/v1/*/*',function(req,res){
+var prefix = '/api/v1';
+console.log(controllers);
 
-	//getting value for first *
-	var module_name = req.params['0'];
-	//getting value for second *
-	var function_name = req.params['1'];
-
-	if(!controller.isExistModule(module_name) || function_name.length == 0)
-	{
-		res.status(500);
-        res.json({
-          "status": 500,
-          "message": "Oops something went wrong",
-          "error": err
-        });
-        return;
-	}
-
-	var module = require('controllers/'+module_name);
-	//calling the function for the corrosponding module
-	module[function_name](req,res);
-});
-
+router.use(prefix+'/editDetails',controllers.editDetailsController);
+/*router.get(prefix+'/editDetails',function(req,res){
+	console.log(req);
+	res.json({'hey':'hey'});
+});*/
 
 
 module.exports = router;
