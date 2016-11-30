@@ -1,14 +1,15 @@
 var User = require('./user-model');
 var db = require('config/db');
+var db_tables = require('helper/db_tables');
 var crypto = require('crypto');
 
 //Users table name in the database
-const user_table = 'users';
-const user_details_table = 'user_details';
-const user_other_details_table = 'user_other_details';
-const user_address_table = 'user_address';
-const employee_basic_details_table = 'emp_basic_details';
-const student_academic_details_table = 'stu_academic';
+const user_table = db_tables.get('user_table');
+const user_details_table = db_tables.get('user_details_table');
+const user_other_details_table = db_tables.get('user_other_details_table');
+const user_address_table = db_tables.get('user_address_table');
+const employee_basic_details_table = db_tables.get('employee_basic_details_table');
+const student_academic_details_table = db_tables.get('student_academic_details_table');
 
 
 
