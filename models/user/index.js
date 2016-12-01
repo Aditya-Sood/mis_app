@@ -99,6 +99,44 @@ var userModel = {
 		});
 	},
 
+	getUserDetailsById : function(userid,callback){
+		var query = "SELECT * FROM "+user_table+","+user_details_table+","+user_other_details_table+" WHERE users.id = user_details.id AND users.id = user_other_details.id AND users.id = ?";	
+		console.log(query);
+		var params = [];
+		params.push(userid);
+
+		db.query(query,params,function(err,result){
+			if(err) 
+			{
+				callback(err,{});
+			}
+			else
+			{
+				delete result[0].password;
+				callback(err,result[0]);
+			}
+		});	
+	},
+
+	getUserAddressDetailsById : function(userid,callback)
+	{
+		var query = "SELECT * FROM "+user_address_table+" WHERE id=? ORDER BY `id` DESC";
+		console.log(query);
+		var params = [];
+		params.push(userid);
+
+		db.query(query,params,function(err,result){
+			if(err) 
+			{
+				callback(err,{});
+			}
+			else
+			{
+				callback(err,result);
+			}
+		});
+	},
+
 }
 
 
@@ -203,5 +241,6 @@ function getStudentDetailsById(userid,callback)
 		}
 	});	
 }
+
 
 module.exports = userModel;
