@@ -5,7 +5,7 @@
 //route for setting end points
 var editDetails = require('express').Router();
 
-console.log('Am I HERE');
+console.log('A I HERE');
 editDetails.get('/',function(req,res){
 	console.log(req);
 	res.json({'hey':'Het'});

@@ -1,7 +1,7 @@
 var jwt = require('jwt-simple');
 
 module.exports = function(req, res, next) {
- 
+
   // When performing a cross domain request, you will recieve
   // a preflighted request first. This is to check if our the app
   // is safe. 
@@ -25,16 +25,15 @@ module.exports = function(req, res, next) {
         });
         return;
       }
+      next();
       console.log('returning');
-      return;
- 
     } catch (err) {
       console.log(err);
       res.status(500);
       res.json({
         "status": 500,
         "message": "Oops something went wrong",
-        "error": err
+        "error": "Unauthorized access"
       });
     }
   } else {

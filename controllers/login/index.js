@@ -80,6 +80,7 @@ var auth = {
 *(b) base64encode({user})
 *(c) base64encode(hash(a+b+secret)) for checksum
 */
+
 function genToken(user) {
 	delete user.password;
 

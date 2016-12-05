@@ -8,9 +8,11 @@ hmap.set('user_address_table','user_address');
 hmap.set('employee_basic_details_table','emp_basic_details');
 hmap.set('student_academic_details_table','stu_academic');
 hmap.set('student_details_table','stu_details');
+hmap.set('student_fee_details_table','stu_fee_details');
 hmap.set('student_other_details_table','stu_other_details');
 hmap.set('student_education_details_table','stu_education_details');
-
-
+hmap.set('department_table','departments');
+hmap.set('course_table','courses');
+hmap.set('branch_table','branches');
 
 module.exports = hmap;
