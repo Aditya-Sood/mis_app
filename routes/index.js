@@ -17,7 +17,7 @@ router.post('/login', auth.login_user);
 */
 var BASE_PATH = '/api/v1/';
 
-router.use('/api/v1/editDetails',controllers.editDetailsController);
+router.use(BASE_PATH+'editDetails',controllers.editDetailsController);
 router.use(BASE_PATH+'viewdetails',controllers.viewDetailsController);
 
 

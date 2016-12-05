@@ -44,13 +44,14 @@
 
 var jwt = require('jwt-simple');
 
-function Session(token){
+function Session(token,callback){
 	this.token = token;
 	try {
       var decoded = jwt.decode(token, require('config/secret.js')());
       this.payload = decoded;
   	}catch (err) {
       console.log(err);
+      callback(err,{'err_code':'unauthorized access'});
     }
 		
 }

@@ -12,7 +12,6 @@ const employee_basic_details_table = db_tables.get('employee_basic_details_table
 const student_academic_details_table = db_tables.get('student_academic_details_table');
 
 
-
 var userModel = {
 	validateUser: function(username,password,callback){
 		
@@ -82,8 +81,6 @@ var userModel = {
 							});
 							
 						}
-
-
 		        	}
 		        	else
 		        	{
