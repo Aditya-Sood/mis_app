@@ -133,7 +133,7 @@ function getEducationalDetails(){
 	education_details_XII = {};
 
 	education_details_X['exam'] = student_details[0]['exam'];
-	education_details_X['branch'] = student_details[0]['brank'];
+	education_details_X['branch'] = student_details[0]['branch'];
 	education_details_X['institute'] = student_details[0]['institute'];
 	education_details_X['year'] = student_details[0]['year'];
 	education_details_X['grade'] = student_details[0]['grade'];
@@ -141,7 +141,7 @@ function getEducationalDetails(){
 
 
 	education_details_XII['exam'] = student_details[1]['exam'];
-	education_details_XII['branch'] = student_details[1]['brank'];
+	education_details_XII['branch'] = student_details[1]['branch'];
 	education_details_XII['institute'] = student_details[1]['institute'];
 	education_details_XII['year'] = student_details[1]['year'];
 	education_details_XII['grade'] = student_details[1]['grade'];
