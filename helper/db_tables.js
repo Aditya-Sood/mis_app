@@ -12,7 +12,17 @@ hmap.set('student_fee_details_table','stu_fee_details');
 hmap.set('student_other_details_table','stu_other_details');
 hmap.set('student_education_details_table','stu_education_details');
 hmap.set('department_table','departments');
-hmap.set('course_table','courses');
-hmap.set('branch_table','branches');
+hmap.set('course_table','cs_courses');
+hmap.set('branch_table','cs_branches');
+hmap.set('dept_course_table','dept_course');
+hmap.set('course_structure_table','course_structure');
+hmap.set('elective_group_table','elective_group');
+hmap.set('course_branch_table','course_branch');
+hmap.set('optional_offered_table','optional_offered');
+hmap.set('honour_minor_offered_table','honour_minor_offered');
+hmap.set('minor_offered_table','minor_offered');
+hmap.set('subject_table','subjects');
+
+
 
 module.exports = hmap;

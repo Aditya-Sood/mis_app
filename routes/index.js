@@ -17,8 +17,8 @@ router.post('/login', auth.login_user);
 */
 var BASE_PATH = '/api/v1/';
 
-router.use(BASE_PATH+'editDetails',controllers.editDetailsController);
+router.use(BASE_PATH+'editdetails',controllers.editDetailsController);
 router.use(BASE_PATH+'viewdetails',controllers.viewDetailsController);
-
+router.use(BASE_PATH+'coursestructure',controllers.courseStructureController);
 
 module.exports = router;
