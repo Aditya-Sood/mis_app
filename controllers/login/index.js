@@ -21,10 +21,7 @@ var auth = {
 			if(err)
 			{
 				res.status(401);
-				res.json({
-				"status": 401,
-				"err_code": 2
-				});
+				res.json(dbUserObj);
 				return;
 			}
 
@@ -53,7 +50,7 @@ var auth = {
 		userModel.validateUser(username,password,function(err,result){
 			if(err)
 			{	
-				callback(err,false);
+				callback(err,result);
 			}
 			else
 			{

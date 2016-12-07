@@ -84,6 +84,10 @@ Session.prototype = {
 
 	getSex: function(){
 		return this.payload.user.sex;
+	},
+
+	getAuthId: function(){
+		return this.payload.user.auth['1'];
 	}
 
 }

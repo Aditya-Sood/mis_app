@@ -5,8 +5,7 @@
 //route for setting end points
 var viewDetails = require('express').Router();
 var Session = require('config/session');
-var viewStudentDetailsModel = require('models/student/student_details');
-
+var viewDetailsModel;
 
 viewDetails.get('/',function(req,res){
 	var session = new Session(req.query.access_token,function(err,result){
@@ -19,8 +18,17 @@ viewDetails.get('/',function(req,res){
 			});
 		}
 	});
+
+	if(session.getAuthId() == 'stu')
+	{
+		viewDetailsModel = require('models/student/student_details');
+	}
+	else if(session.getAuthId() == 'emp')
+	{
+		viewDetailsModel = require('models/employee/employee_details');
+	}
 	
-	viewStudentDetailsModel.getAllDetails(session.getId(),function(err,result){
+	viewDetailsModel.getAllDetails(session.getId(),function(err,result){
 		if(err)
 		{
 			res.status(401);

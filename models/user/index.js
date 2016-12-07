@@ -16,6 +16,7 @@ var userModel = {
 	validateUser: function(username,password,callback){
 		
 		row = getUserById(username,function(err,row){
+			console.log(row);
 			if(err){
 				callback(err,{'err_code' : 1});
 			}
@@ -37,6 +38,7 @@ var userModel = {
 						if(row[0].auth_id == 'emp')
 						{
 							var emp_details = getEmployeeDetailsById(row[0].id,function(err,result){
+								console.log(result);
 								if(err)
 								{
 									callback(err,{'err_code':5});
@@ -202,7 +204,7 @@ function getUserById(username,callback)
 //getting employee specific details
 function getEmployeeDetailsById(userid,callback)
 {
-	var query = "SELECT auth_id,d.name as des_name FROM "+ employee_basic_details_table +" AS e INNER JOIN designations AS d ON e.designation = d.id	where e.emp_no = ?";
+	var query = "SELECT auth_id,d.name as des_name FROM "+ employee_basic_details_table +" AS e INNER JOIN designations AS d ON e.designation = d.id where e.id = ?";
 	var params = [];
 	params.push(userid);
 
