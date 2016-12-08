@@ -32,10 +32,7 @@ viewDetails.get('/',function(req,res){
 		if(err)
 		{
 			res.status(401);
-			res.json({
-			"status": 401,
-			"err_code": 2
-			});	
+			res.json(result);	
 		}
 		else
 		{

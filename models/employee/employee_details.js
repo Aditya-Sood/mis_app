@@ -36,43 +36,51 @@ var employeeDetails = {
 				details = {};
 				details['personal'] = user_details;
 				details['address'] = user_address_details;
-				if(getFamilyDetails(id))
-				{
-					console.log("1");
-					details['family'] = family_details;
-					if(getEducationDetails(id))
-					{	
-						console.log("2");
-						details['education']  = education_details;
-						if(getPayDetails(id))
-						{
-							console.log("3");
-							details['pay'] = pay_details;
-							if(getLast5YearStayDetails(id))
-							{
-								console.log("4");
-								details['stay'] = stay_details;
-								callback(null,details);
+				getFamilyDetails(id,function(err,result){
+					if(!err)
+					{
+						console.log("1");
+						details['family'] = family_details = result;
+						getEducationDetails(id,function(err,result){
+							if(!err)
+							{	
+								console.log("2");
+								details['education']  = education_details = result;
+								getPayDetails(id,function(err,result){
+									if(!err)
+									{
+										console.log("3");
+										details['pay'] = pay_details = result;
+										getLast5YearStayDetails(id,function(err,result){
+											if(!err)
+											{
+												console.log("4");
+												details['stay'] = stay_details = result;
+												callback(null,details);
+											}
+											else
+											{
+												callback(true,{'err_code':2,'err_message':err.message});
+											}
+										});
+									}
+									else
+									{
+										callback(true,{'err_code':2,'err_message':err.message});
+									}
+								});
 							}
 							else
 							{
-								callback(true,{'err_code':2});
+								callback(true,{'err_code':2,'err_message':err.message});
 							}
-						}
-						else
-						{
-							callback(true,{'err_code':2});
-						}
-					}
+						});
+					} 
 					else
 					{
-						callback(true,{'err_code':2});
+						callback(true,{'err_code':2,'err_message':err.message});
 					}
-				} 
-				else
-				{
-					callback(true,{'err_code':2});
-				}
+				});
 			}
 		});
 	},
@@ -108,7 +116,6 @@ function initializeVariables(id,callback){
 						}
 						else
 						{
-							console.log(result);
 							employee_details = result[0];
 							callback(err=null,{'err_code':0});
 						}
@@ -120,57 +127,42 @@ function initializeVariables(id,callback){
 }
 
 
-function getEducationDetails(id)
+function getEducationDetails(id,callback)
 {
 	var query = "SELECT * FROM "+employee_education_details_table + " WHERE id = ?";
 	params = [];
 	params.push(id);
-	db.query(query,params,function(err,result){
-		if(!err) {education_details =  result;console.log(result);return true;}
-		else false;
-	});
+	db.query(query,params,callback);
 }
 
-function getPayDetails(id)
+function getPayDetails(id,callback)
 {
 	var query = "SELECT * FROM "+employee_pay_details_table+" WHERE id = ?";
 	params = [];
 	params.push(id);
-	db.query(query,params,function(err,result){
-		if(!err) {pay_details=result;console.log(result);return true;}
-		else return false;
-	});
+	db.query(query,params,callback);
 }
 
-function getFamilyDetails(id)
+function getFamilyDetails(id,callback)
 {
 	var query = "SELECT * FROM "+employee_family_details_table+ " WHERE id = ?";
 	params = [];params.push(id);
-	db.query(query,params,function(err,result){
-		if(!err){ family_details = result;console.log(result);return true;}
-		else return false;
-	});
+	db.query(query,params,callback);
 }
 
-function getLast5YearStayDetails(id)
+function getLast5YearStayDetails(id,callback)
 {
 	var query = "SELECT * FROM "+employee_last_5_year_stay_table + " WHERE id = ?";
 	params = [];params.push(id);
-	db.query(query,params,function(err,result){
-		if(!err){stay_details = result;console.log(result);return true;}
-		else return false;
-	});
+	db.query(query,params,callback);
 }
 
-function prevExpDetails(id)
+function prevExpDetails(id,callback)
 {
 	var query = "SELECT * FROM "+employee_prev_exp_details_table+" WHERE id = ?";
 	params = [];
 	params.push(id);
-	db.query(query,params,function(err,result){
-		if(!err){prev_exp_details = result;console.log(result);return true;}
-		else return false;
-	});
+	db.query(query,params,callback);
 }
 
 

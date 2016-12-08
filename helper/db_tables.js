@@ -10,7 +10,7 @@ hmap.set('employee_basic_details_table','emp_basic_details');
 hmap.set('employee_education_details_table','emp_education_details');
 hmap.set('employee_family_details_table','emp_family_details');
 hmap.set('employee_last_5_year_stay_table','emp_last5yrstay_details');
-hmap.set('employee_pay_details_table','employee_pay_details');
+hmap.set('employee_pay_details_table','emp_pay_details');
 hmap.set('employee_prev_exp_details_table','emp_prev_exp_details');
 hmap.set('faculty_details_table','faculty_details');	
 
