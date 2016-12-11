@@ -16,9 +16,9 @@ hmap.set('faculty_details_table','faculty_details');
 
 hmap.set('student_academic_details_table','stu_academic');
 hmap.set('student_details_table','stu_details');
-hmap.set('student_fee_details_table','stu_fee_details');
+hmap.set('student_fee_details_table','stu_admn_fee');
 hmap.set('student_other_details_table','stu_other_details');
-hmap.set('student_education_details_table','stu_education_details');
+hmap.set('student_education_details_table','stu_prev_education');
 
 hmap.set('department_table','departments');
 hmap.set('course_table','cs_courses');

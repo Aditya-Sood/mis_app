@@ -197,7 +197,7 @@ function initializeVariables(adm_no,callback){
 	user.getUserDetailsById(adm_no,function(err,result){
 		if(err)
 		{
-			callback(err,{'err_code':6});
+			callback(err,{'err_code':6,'err_msg':err.message});
 		}
 		else
 		{
@@ -207,7 +207,7 @@ function initializeVariables(adm_no,callback){
 			user.getUserAddressDetailsById(adm_no,function(err,result){
 				if(err)
 				{
-					callback(err,{'err_code':6});
+					callback(err,{'err_code':6,'err_msg':err.message});
 				}
 				else
 				{
@@ -217,7 +217,7 @@ function initializeVariables(adm_no,callback){
 					getStudentDetailsById(adm_no,function(err,result){
 						if(err)
 						{
-							callback(err,{'err_code':6});
+							callback(err,{'err_code':6,'err_msg':err.message});
 						}
 						else
 						{
@@ -246,14 +246,14 @@ function getFullName(first_name,middle_name,last_name)
 }
 
 function getStudentDetailsById(stu_id,callback){
-	var query = "SELECT * FROM "+student_details_table+","+student_other_details_table+","+student_academic_details_table+","+student_fee_details_table+","+student_education_details_table+" WHERE stu_details.admn_no = stu_other_details.id AND stu_details.admn_no=stu_fee_details.id AND stu_details.admn_no = stu_academic.id AND stu_details.admn_no = stu_education_details.id AND stu_details.admn_no=?";
+	var query = "SELECT * FROM "+student_details_table+","+student_other_details_table+","+student_academic_details_table+","+student_fee_details_table+","+student_education_details_table+" WHERE stu_details.admn_no = stu_other_details.admn_no AND stu_details.admn_no=stu_admn_fee.admn_no AND stu_details.admn_no = stu_academic.admn_no AND stu_details.admn_no = stu_prev_education.admn_no AND stu_details.admn_no=?";
 	var params = [];
 	params.push(stu_id);
 
 	db.query(query,params,function(err,result){
 		if(err) 
 		{
-			callback(err,{'err_code':6});
+			callback(err,{'err_code':6,'err_msg':err.message});
 		}
 		else
 		{
@@ -261,21 +261,21 @@ function getStudentDetailsById(stu_id,callback){
 				//console.log(result);
 				if(err)
 				{
-					callback(err,{'err_code':6});
+					callback(err,{'err_code':6,'err_msg':err.message});
 				}else
 				{
 					result[0]['department'] = result1.name;
 					gen_api.getCourseNameById(result[0].course_id,function(err,result2){
 						if(err)
 						{
-							callback(err,{'err_code':6});
+							callback(err,{'err_code':6,'err_msg':err.message});
 						}else
 						{
 							result[0]['course'] = result2.name;
 							gen_api.getDepartmentNameById(result[0].branch_id,function(err,result3){
 								if(err)
 								{
-									callback(err,{'err_code':6});
+									callback(err,{'err_code':6,'err_msg':err.message});
 								}else
 								{
 									result[0]['branch'] = result3.name;
@@ -293,3 +293,4 @@ function getStudentDetailsById(stu_id,callback){
 
 
 module.exports = studentDetails;
+

@@ -41,7 +41,7 @@ var userModel = {
 								console.log(result);
 								if(err)
 								{
-									callback(err,{'err_code':5});
+									callback(err,{'err_code':5,'err_msg':err.message});
 								}
 								else
 								{
@@ -63,7 +63,7 @@ var userModel = {
 							var stu_details = getStudentDetailsById(row[0].id,function(err,result){
 								if(err)
 								{
-									callback(err,{'err_code':5});
+									callback(err,{'err_code':5,'err_msg':err.message});
 								}
 								else
 								{
@@ -86,7 +86,7 @@ var userModel = {
 		        	}
 		        	else
 		        	{
-		        		callback(err=true,{'err_code' : 2});
+		        		callback(err=true,{'err_code' : 2,'err_msg':err.message});
 		        	}
 	        	}
 	        	else
@@ -204,7 +204,7 @@ function getUserById(username,callback)
 //getting employee specific details
 function getEmployeeDetailsById(userid,callback)
 {
-	var query = "SELECT auth_id,d.name as des_name FROM "+ employee_basic_details_table +" AS e INNER JOIN designations AS d ON e.designation = d.id where e.id = ?";
+	var query = "SELECT auth_id,d.name as des_name FROM "+ employee_basic_details_table +" AS e INNER JOIN designations AS d ON e.designation = d.id where e.emp_no = ?";
 	var params = [];
 	params.push(userid);
 
@@ -224,7 +224,7 @@ function getEmployeeDetailsById(userid,callback)
 function getStudentDetailsById(userid,callback)
 {
 	console.log(userid);
-	var query = "SELECT branch_id,course_id,semester,auth_id FROM " + student_academic_details_table + " WHERE id = ?";
+	var query = "SELECT branch_id,course_id,semester,auth_id FROM " + student_academic_details_table + " WHERE admn_no = ?";
 	console.log(query);
 	var params = [];
 	params.push(userid);

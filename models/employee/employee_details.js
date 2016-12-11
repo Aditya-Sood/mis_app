@@ -102,7 +102,7 @@ function initializeVariables(id,callback){
 			user.getUserAddressDetailsById(id,function(err,result){
 				if(err)
 				{
-					callback(err,{'err_code':6});
+					callback(err,{'err_code':6,'err_msg':err.message});
 				}
 				else
 				{
@@ -129,7 +129,7 @@ function initializeVariables(id,callback){
 
 function getEducationDetails(id,callback)
 {
-	var query = "SELECT * FROM "+employee_education_details_table + " WHERE id = ?";
+	var query = "SELECT * FROM "+employee_education_details_table + " WHERE emp_no = ?";
 	params = [];
 	params.push(id);
 	db.query(query,params,callback);
@@ -137,7 +137,7 @@ function getEducationDetails(id,callback)
 
 function getPayDetails(id,callback)
 {
-	var query = "SELECT * FROM "+employee_pay_details_table+" WHERE id = ?";
+	var query = "SELECT * FROM "+employee_pay_details_table+" WHERE emp_no = ?";
 	params = [];
 	params.push(id);
 	db.query(query,params,callback);
@@ -145,21 +145,21 @@ function getPayDetails(id,callback)
 
 function getFamilyDetails(id,callback)
 {
-	var query = "SELECT * FROM "+employee_family_details_table+ " WHERE id = ?";
+	var query = "SELECT * FROM "+employee_family_details_table+ " WHERE emp_no = ?";
 	params = [];params.push(id);
 	db.query(query,params,callback);
 }
 
 function getLast5YearStayDetails(id,callback)
 {
-	var query = "SELECT * FROM "+employee_last_5_year_stay_table + " WHERE id = ?";
+	var query = "SELECT * FROM "+employee_last_5_year_stay_table + " WHERE emp_no = ?";
 	params = [];params.push(id);
 	db.query(query,params,callback);
 }
 
 function prevExpDetails(id,callback)
 {
-	var query = "SELECT * FROM "+employee_prev_exp_details_table+" WHERE id = ?";
+	var query = "SELECT * FROM "+employee_prev_exp_details_table+" WHERE emp_no = ?";
 	params = [];
 	params.push(id);
 	db.query(query,params,callback);
@@ -181,7 +181,7 @@ function getFullName(first_name,middle_name,last_name)
 
 function getEmployeeDetailsById(id,callback)
 {
-	var query = "SELECT * FROM "+employee_basic_details_table+" INNER JOIN "+faculty_details_table+" ON emp_basic_details.id = faculty_details.id WHERE emp_basic_details.id = ?";
+	var query = "SELECT * FROM "+employee_basic_details_table+" INNER JOIN "+faculty_details_table+" ON emp_basic_details.emp_no = faculty_details.emp_no WHERE emp_basic_details.emp_no = ?";
 	params = [];
 	params.push(id);
 	db.query(query,params,callback);

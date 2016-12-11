@@ -16,7 +16,7 @@ function DbConnection() {
         host: 'localhost',
         user: 'root',
         password: '8800',
-        database: 'mis',
+        database: 'mis1',
         debug: false    
     });
 }
