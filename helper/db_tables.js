@@ -32,7 +32,10 @@ hmap.set('honour_minor_offered_table','honour_minor_offered');
 hmap.set('minor_offered_table','minor_offered');
 hmap.set('subject_table','subjects');
 
-
+hmap.set('reg_regular_form_table','reg_regular_form');
+hmap.set('reg_regular_elective_opted_table','reg_regular_elective_opted');
+hmap.set('subject_mapping_table','subject_mapping');
+hmap.set('subject_mapping_des_table','subject_mapping_des');
 
 
 module.exports = hmap;

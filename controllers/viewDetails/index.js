@@ -14,7 +14,8 @@ viewDetails.get('/',function(req,res){
 			res.status(401);
 			res.json({
 				"status":401,
-				"err_code":8
+				"err_code":8,
+				"err_msg":'some problem in session'
 			});
 		}
 	});

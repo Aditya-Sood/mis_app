@@ -20,5 +20,6 @@ var BASE_PATH = '/api/v1/';
 router.use(BASE_PATH+'editdetails',controllers.editDetailsController);
 router.use(BASE_PATH+'viewdetails',controllers.viewDetailsController);
 router.use(BASE_PATH+'coursestructure',controllers.courseStructureController);
+router.use(BASE_PATH+'attendance',controllers.attendanceController);
 
 module.exports = router;

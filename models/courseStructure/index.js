@@ -54,7 +54,7 @@ function selectDeptCourse(callback){
 	db.query(query,params,callback);
 }
 
-function selectDeptCourseByDeptId(dept_id,callback){
+function selectDeptCourseByDeptId	(dept_id,callback){
 	var query = "SELECT * FROM "+dept_course_table+" WHERE 	dept_id = ?";
 	params = [];params.push(dept_id);
 	db.query(query,params,callback);
@@ -132,7 +132,7 @@ function getBranchByCourse(callback,course_id){
 	db.query(query,params,callback);	
 }
 
-function getBranchesByCourseAndDept(callback,course_id,dept_id){
+function getBranchesByCourseAndDept(course_id,dept_id,callback){
 	var query = "SELECT DISTINCT id,name,dept_course.course_branch_id FROM cs_branches INNER JOIN course_branch ON course_branch.branch_id = cs_branches.id INNER JOIN dept_course ON dept_course.course_branch_id = course_branch.course_branch_id WHERE course_branch.course_id = ? AND dept_course.dept_id = ?";
 	params = [];
 	params.push(course_id);
@@ -318,7 +318,7 @@ function checkHonourMinorOffered(aggr_id,id)
 	params.push(id);
 	db.query(query,params,function(err,result)
 	{
-		if(!err AND result.lenght()>0) return true;
+		if(!err&&sresult.lenght()>0) return true;
 		else return false;
 	});
 }
@@ -358,7 +358,7 @@ var courseStructure = {
 	getCourseStructureById : getCourseStructureById,
 	selectAllSubjectByAggrIdAndSemester : selectAllSubjectByAggrIdAndSemester,
 	selectAllHonourOrMinorSubjectByAggrIdAndSemester : selectAllHonourOrMinorSubjectByAggrIdAndSemester,
-	electAllElectiveSubjectByAggrIdAndSem : electAllElectiveSubjectByAggrIdAndSem,
+	selectAllElectiveSubjectByAggrIdAndSem : selectAllElectiveSubjectByAggrIdAndSem,
 	checkIfAggrIdExist : checkIfAggrIdExist,
 	getSubjectsBySemAndDept : getSubjectsBySemAndDept,
 	getSubjectsBySem : getSubjectsBySem,
@@ -386,7 +386,7 @@ var courseStructure = {
 	selectDeptCourse : selectDeptCourse,
 	countDeptCourseByAggrId : countDeptCourseByAggrId,
 	selectDeptByUserId : selectDeptByUserId,
-	getDepts : getDepts
-},
+	getDepts : getDepts,
+};
 
 module.exports = courseStructure;

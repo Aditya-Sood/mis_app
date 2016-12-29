@@ -37,7 +37,7 @@ DbConnection.prototype.query = function(queryStr, params = [], callback) {
     this.pool.getConnection(function(err, connection) {
         if (err) {
             try { connection.release(); } catch(ex) {}
-            callback(err, {});
+            callback(err,{'err_msg':err.message});
             return;
         }
         
