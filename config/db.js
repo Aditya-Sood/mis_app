@@ -34,6 +34,7 @@ function DbConnection() {
 */
 
 DbConnection.prototype.query = function(queryStr, params = [], callback) {
+    console.log("Query Submitted : "+queryStr+":"+params);
     this.pool.getConnection(function(err, connection) {
         if (err) {
             try { connection.release(); } catch(ex) {}

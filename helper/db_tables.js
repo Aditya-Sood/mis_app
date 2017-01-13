@@ -37,5 +37,8 @@ hmap.set('reg_regular_elective_opted_table','reg_regular_elective_opted');
 hmap.set('subject_mapping_table','subject_mapping');
 hmap.set('subject_mapping_des_table','subject_mapping_des');
 
+hmap.set('absent_table','absent_table');
+hmap.set('total_class_table','total_class_table');
+
 
 module.exports = hmap;
