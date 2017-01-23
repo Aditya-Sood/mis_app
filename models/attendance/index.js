@@ -13,6 +13,7 @@ var subject_mapping_table = db_tables.get('subject_mapping_table');
 var subject_mapping_des_table = db_tables.get('subject_mapping_des_table');
 var absent_table = db_tables.get('absent_table');
 var total_class_table = db_tables.get('total_class_table');
+var class_engaged_table = db_tables.get('class_engaged_table');
 
 
 function getSessionYear(adm_no,callback)
@@ -56,7 +57,7 @@ function getSubjectList(data,callback)
 	var session = data['session'];
 	var adm_no = data['adm_no'];
 	var semester = data['semester'];
-	var query = "SELECT DISTINCT course_id, branch_id,form_id as sem_form_id FROM "+reg_regular_form_table+" WHERE admn_no = ? AND session_year = ? AND session = ?";
+	var query = "SELECT DISTINCT course_aggr_id,course_id, branch_id,form_id as sem_form_id FROM "+reg_regular_form_table+" WHERE admn_no = ? AND session_year = ? AND session = ?";
     params = [];
     params.push(adm_no);
     params.push(session_year);
@@ -70,19 +71,21 @@ function getSubjectList(data,callback)
     		var course_id = result[0]['course_id'];
     		var branch_id = result[0]['branch_id'];
     		var sem_form_id = result[0]['sem_form_id'];
-    		var query1 = "SELECT DISTINCT map_id FROM "+subject_mapping_table+" WHERE course_id = ? AND branch_id = ? AND semester = ? AND session = ? AND session_year = ?";
+    		var course_aggr_id = result[0]['course_aggr_id'];
+    		var query1 = "SELECT DISTINCT map_id FROM "+subject_mapping_table+" WHERE course_id = ? AND branch_id = ? AND semester = ? AND session = ? AND session_year = ?	AND aggr_id=?";
     		params1 = [];
     		params1.push(course_id);
     		params1.push(branch_id);
     		params1.push(semester);
     		params1.push(session);
     		params1.push(session_year);
+    		params1.push(course_aggr_id);
     		db.query(query1,params1,function(err1,result1){
     			if(err1) callback(err,result1);
     			else{
     				console.log(result1);
     				var map_id = result1[0]['map_id'];
-    				var query2 = "SELECT subject_id, name ,id FROM "+subjects_table+" WHERE id IN (SELECT DISTINCT sub_id as subject_id FROM "+subject_mapping_des_table+" WHERE map_id = ?)";	
+    				var query2 = "SELECT DISTINCT subject_id, name ,id FROM "+subjects_table+" WHERE id IN (SELECT DISTINCT sub_id as subject_id FROM "+subject_mapping_des_table+" WHERE map_id = ?)";	
     				params2 = [];
     				params2.push(map_id);
     				db.query(query2,params2,function(err2,result2){
@@ -90,7 +93,7 @@ function getSubjectList(data,callback)
     					{
     						subject_list.push(result2[i]);
     					}
-    					var query3 = "SELECT sub_id FROM "+reg_regular_elective_opted_table+" WHERE form_id = ?";
+    					var query3 = "SELECT DISTINCT sub_id FROM "+reg_regular_elective_opted_table+" WHERE form_id = ?";
     					params3 = [];
     					params3.push(sem_form_id);
     					db.query(query3,params3,function(err3,result3){
@@ -105,7 +108,7 @@ function getSubjectList(data,callback)
 	    						}
 	    						items.forEach(function(item){
 	    							async_tasks.push(function(callback){
-	    								var query4 = "SELECT subject_id, name ,id FROM "+subjects_table+" WHERE id  = ?";
+	    								var query4 = "SELECT DISTINCT subject_id, name ,id FROM "+subjects_table+" WHERE id  = ?";
 	    								params4 = [];
 	    								params4.push(item['sub_id']);
 	    								db.query(query4,params4,function(err4,result4){
@@ -141,7 +144,7 @@ function getAttendanceDetails(data,callback)
 	var session = data['session'];
 	var adm_no = data['adm_no'];
 	var semester = data['semester'];
-	var query = "SELECT DISTINCT course_id, branch_id,form_id as sem_form_id FROM "+reg_regular_form_table+" WHERE admn_no = ? AND session_year = ? AND session = ?";
+	var query = "SELECT DISTINCT course_aggr_id,course_id, branch_id,form_id as sem_form_id FROM "+reg_regular_form_table+" WHERE admn_no = ? AND session_year = ? AND session = ?";
     params = [];
     params.push(adm_no);
     params.push(session_year);
@@ -155,25 +158,27 @@ function getAttendanceDetails(data,callback)
     		var course_id = result[0]['course_id'];
     		var branch_id = result[0]['branch_id'];
     		var sem_form_id = result[0]['sem_form_id'];
-    		var query1 = "SELECT DISTINCT map_id FROM "+subject_mapping_table+" WHERE course_id = ? AND branch_id = ? AND semester = ? AND session = ? AND session_year = ?";
+    		var course_aggr_id = result[0]['course_aggr_id'];
+    		var query1 = "SELECT DISTINCT map_id FROM "+subject_mapping_table+" WHERE course_id = ? AND branch_id = ? AND semester = ? AND session = ? AND session_year = ? AND aggr_id=?";
     		params1 = [];
     		params1.push(course_id);
     		params1.push(branch_id);
     		params1.push(semester);
     		params1.push(session);
     		params1.push(session_year);
+    		params1.push(course_aggr_id);
     		db.query(query1,params1,function(err1,result1){
     			if(err1) callback(err,result1);
     			else{
     				console.log(result1);
     				var map_id = result1[0]['map_id'];
-    				var query2 = "SELECT subject_id, name ,id FROM "+subjects_table+" WHERE id IN (SELECT DISTINCT sub_id as subject_id FROM "+subject_mapping_des_table+" WHERE map_id = ?)";	
+    				var query2 = "SELECT DISTINCT subject_id, name ,id FROM "+subjects_table+" WHERE id IN (SELECT DISTINCT sub_id as subject_id FROM "+subject_mapping_des_table+" WHERE map_id = ?)";	
     				params2 = [];
     				params2.push(map_id);
     				db.query(query2,params2,function(err2,result2){
     					if(err2) callback(err2,result2);
     					else{
-	    					var query3 = "SELECT sub_id FROM "+reg_regular_elective_opted_table+" WHERE form_id = ?";
+	    					var query3 = "SELECT DISTINCT sub_id FROM "+reg_regular_elective_opted_table+" WHERE form_id = ?";
 	    					params3 = [];
 	    					params3.push(sem_form_id);
 	    					db.query(query3,params3,function(err3,result3){
@@ -193,7 +198,7 @@ function getAttendanceDetails(data,callback)
 		    						console.log(items);
 		    						items.forEach(function(item){
 		    							async_tasks.push(function(callback){
-		    								var query4 = "SELECT subject_id, name ,id FROM "+subjects_table+" WHERE id  = ?";
+		    								var query4 = "SELECT DISTINCT subject_id, name ,id FROM "+subjects_table+" WHERE id  = ?";
 		    								params4 = [];
 		    								params4.push(item['sub_id']);
 		    								db.query(query4,params4,function(err4,result4){
@@ -210,7 +215,7 @@ function getAttendanceDetails(data,callback)
 		    											else
 		    											{
 		    												att_details['total_absent'] = result5.length;
-		    												var query6 = "SELECT total_class FROM "+total_class_table+" WHERE map_id = ? AND sub_id = ?";
+		    												var query6 = "SELECT DISTINCT total_class FROM "+total_class_table+" WHERE map_id = ? AND sub_id = ?";
 		    												var param6 = [];
 		    												param6.push(map_id);
 		    												param6.push(item['sub_id']);
@@ -236,7 +241,7 @@ function getAttendanceDetails(data,callback)
 		    						});
 		    						async.parallel(async_tasks, function(err,result){
 									  // All tasks are done now
-									  callback(err,subject_list);
+									  callback(err,{'map_id':map_id,'subjects':subject_list});
 									});
 	    						}
 	    					});
@@ -248,11 +253,69 @@ function getAttendanceDetails(data,callback)
     });	
 }
 
+
+function detailedAttendanceOfSubject(data,callback)
+{
+	var sub_id = data['sub_id'];
+	var map_id = data['map_id'];
+	var adm_no = data['adm_no'];
+	var async_tasks = [];
+	var absent_list,class_list;
+	
+	async_tasks.push(function(callback){
+		var query = "SELECT DISTINCT date FROM "+absent_table+" WHERE sub_id  = ? AND admn_no = ? AND map_id = ?";
+		var params = [];
+		params.push(sub_id);
+		params.push(adm_no);
+		params.push(map_id);
+		db.query(query,params,function(err,result){
+			if(err) callback(err,result);
+			else{
+				absent_list = result;			
+				callback();	
+			}
+		});
+	});
+
+	async_tasks.push(function(callback){
+		var query = "SELECT DISTINCT date FROM "+class_engaged_table+" WHERE sub_id  = ? AND map_id = ?";
+		var params = [];
+		params.push(sub_id);
+		params.push(map_id);
+		db.query(query,params,function(err,result){
+			if(err) callback(err,result);
+			else{
+				class_list = result;			
+				callback();	
+			}
+		});
+	});
+
+	async.series(async_tasks,function(err,result){
+		var attendance_details = {};
+		for(var i=0;i<class_list.length;i++)
+		{
+			attendance_details[class_list[i]['date']] = 1;
+			for(var j=0;j<absent_list.length;j++)
+			{
+				if(absent_list[j]['date'] == class_list[i]['date'])
+				{
+					attendance_details[class_list[i]['date']] = 0;
+					break;
+				}
+			}
+		}
+		callback(err,attendance_details);
+	});
+}
+
+
 var attendance = {
 	getSessionYear : getSessionYear,
 	getSemester : getSemester,
 	getSubjectList : getSubjectList,
-	getAttendanceDetails :  getAttendanceDetails
+	getAttendanceDetails :  getAttendanceDetails,
+	getDetailedAttendanceOfSubject : detailedAttendanceOfSubject,
 };
 
 module.exports = attendance;

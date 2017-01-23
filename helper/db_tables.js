@@ -39,6 +39,8 @@ hmap.set('subject_mapping_des_table','subject_mapping_des');
 
 hmap.set('absent_table','absent_table');
 hmap.set('total_class_table','total_class_table');
+hmap.set('class_engaged_table','class_engaged');
+hmap.set('syllabus_table','cs_syllabus');
 
 
 module.exports = hmap;
