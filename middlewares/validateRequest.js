@@ -1,4 +1,6 @@
 var jwt = require('jwt-simple');
+var url = require('url');
+var Session = require('config/session');
 
 module.exports = function(req, res, next) {
 
@@ -20,13 +22,55 @@ module.exports = function(req, res, next) {
       if (decoded.exp <= Date.now()) {
         res.status(400);
         res.json({
+          "success":false,
           "status": 400,
           "message": "Token Expired"
         });
+        next();
         return;
       }
-      next();
-      console.log('returning');
+
+      var url_parts = url.parse(req.url);
+      var pathname = url_parts.pathname;
+      var pathname_parts = pathname.split('/');
+      var module_name = pathname_parts[3];
+      var function_name = pathname_parts[4];
+
+      var auth_file_path = 'controllers/'+module_name+'/'+'authorization';
+      var auth = require(auth_file_path);
+
+      var auth_list = auth.get('/'+function_name);
+      if(auth_list.length == 0)
+      {
+        next();
+      }
+      else{
+          var session = new Session(req.query.access_token,function(err,result){
+            if(err)
+            {
+              res.status(401);
+              res.json({
+                "success":false,
+                "err_msg":'some problem in session'
+              });
+              
+              next();
+            }
+          });
+          var auth_id = session.getAuthId();
+          if(auth_list.includes(auth_id))
+          {
+            next();
+          }
+          else{
+            res.status(401);
+            res.json({
+                "success":false,
+                "err_msg":'You are not authorized to access this resource'
+            });
+            next();
+          }
+      }
     } catch (err) {
       console.log(err);
       res.status(500);

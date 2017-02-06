@@ -42,5 +42,12 @@ hmap.set('total_class_table','total_class_table');
 hmap.set('class_engaged_table','class_engaged');
 hmap.set('syllabus_table','cs_syllabus');
 
+hmap.set('session_track_table','session_track');
+hmap.set('honour_minor_table','hm_form');
+hmap.set('honour_minor_details_table','hm_minor_details');
+hmap.set('student_section_data_table','stu_section_data');
+hmap.set('reg_other_subjects_table','reg_other_subject');
+hmap.set('reg_other_form_table','reg_other_form');
+hmap.set('attendance_remark_table','attendance_remark_table')
 
 module.exports = hmap;

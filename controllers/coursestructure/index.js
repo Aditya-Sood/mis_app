@@ -4,7 +4,7 @@
 
 //route for setting end points
 var courseStructure = require('express').Router();
-var courseStructureModel = require('models/courseStructure');
+var courseStructureModel = require('models/coursestructure');
 
 
 /*

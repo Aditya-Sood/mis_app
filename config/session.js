@@ -88,7 +88,12 @@ Session.prototype = {
 
 	getAuthId: function(){
 		return this.payload.user.auth['1'];
+	},
+
+	getDeptId: function(){
+		return this.payload.user.dept_id;
 	}
+
 
 }
 

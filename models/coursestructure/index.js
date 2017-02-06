@@ -213,6 +213,7 @@ function viewCourseStructure(data,callback1)
 				course['subjects']['subject_details'] = {};
 				course['subjects']['sequence_no'] = {};
 				course['subjects']['elective_count'] = {};
+				course['subjects']['count'] = {};
 
 				for(var sem = start_sem ; sem<=end_sem ; sem++)
 				{	
@@ -230,6 +231,7 @@ function viewCourseStructure(data,callback1)
 									course['subjects']['group_details'][counter] = result['group_details'];
 									course['subjects']['subject_details'][counter] = result['subject_details'][counter];
 									course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
+									course['subjects']['count'][counter] = result['count'][counter];
 									course['subjects']['elective_count'][counter] = result['elective_count'];
 									callback();
 								}
@@ -256,6 +258,7 @@ function viewCourseStructure(data,callback1)
 											console.log(result);												
 											course['subjects']['group_details'][counter] = result['group_details'];
 											course['subjects']['subject_details'][counter] = result['subject_details'][counter];
+											course['subjects']['count'][counter] = result['count'][counter];
 											course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
 											course['subjects']['elective_count'][counter] = result['elective_count'];
 											callback();
@@ -276,6 +279,7 @@ function viewCourseStructure(data,callback1)
 											console.log(result);													
 											course['subjects']['group_details'][counter] = result['group_details'];
 											course['subjects']['subject_details'][counter] = result['subject_details'][counter];
+											course['subjects']['count'][counter] = result['count'][counter];
 											course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
 											course['subjects']['elective_count'][counter] = result['elective_count'];
 											callback();
@@ -293,6 +297,7 @@ function viewCourseStructure(data,callback1)
 											console.log(result);		
 											course['subjects']['group_details'][counter] = result['group_details'];
 											course['subjects']['subject_details'][counter] = result['subject_details'][counter];
+											course['subjects']['count'][counter] = result['count'][counter];
 											course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
 											course['subjects']['elective_count'][counter] = result['elective_count'];
 											callback();
@@ -310,6 +315,7 @@ function viewCourseStructure(data,callback1)
 											console.log(result);
 											course['subjects']['group_details'][counter] = result['group_details'];
 											course['subjects']['subject_details'][counter] = result['subject_details'][counter];
+											course['subjects']['count'][counter] = result['count'][counter];
 											course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
 											course['subjects']['elective_count'][counter] = result['elective_count'];
 											callback();

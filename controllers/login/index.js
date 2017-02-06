@@ -21,14 +21,16 @@ var auth = {
 			if(err)
 			{
 				res.status(401);
-				res.json(dbUserObj);
+				res.json({
+					'success' : false,
+					'user':dbUserObj});
 				return;
 			}
 
 			if (!dbUserObj) { // If authentication fails, we send a 401 back
 				res.status(401);
 				res.json({
-				"status": 401,
+				"success": false,
 				"err_code": 2
 				});
 				return;
@@ -88,6 +90,7 @@ function genToken(user) {
 		user: user
 	}, require('config/secret.js')());
 	return {
+		'success':true,
 		token: token,
 		expires: expires
 	};
