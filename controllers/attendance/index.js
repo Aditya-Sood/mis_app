@@ -290,5 +290,51 @@ attendance.get('/viewattendancesheet',function(req,res){
 	});
 });
 
+attendance.get('/getdefaulterlist',function(req,res){
+	var session = new Session(req.query.access_token,function(err,result){
+		if(err)
+		{
+			res.status(401);
+			res.json({
+				"status":401,
+				"err_code":8,
+				"err_msg":'some problem in session'
+			});
+		}
+	});
+	var data = {};
+	data['emp_id'] = session.getId();
+	data['session_year'] = req.query.session_year;
+	data['branch_name'] = req.query.branch_name;
+	data['course_name'] = req.query.course_name;
+	data['session'] = req.query.session;
+	data['sub_id'] = req.query.sub_id;
+	data['branch_id'] = req.query.branch_id;
+	data['course_id'] = req.query.course_id;
+	data['sub_name'] = req.query.sub_name;
+	data['semester'] = req.query.semester;
+	if(data['course_id'] == 'comm')
+	{
+		data['group'] = req.query.group;
+		data['section'] = req.query.section;
+	}
+	empAttendanceModel.getDefaulterList(data,function(err,result){
+		if(err)
+			{
+				res.status(401);
+				res.json({
+					'success':false,
+					'err_msg':err.message
+				});
+			}
+			else{
+				res.json({
+					'success':true,
+					'defaulter_list':result
+				});
+			}
+	});
+});
+
 
 module.exports = attendance;

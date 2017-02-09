@@ -687,9 +687,42 @@ function viewAttendanceSheet(data,callback)
 }
 
 
+function getDefaulterList(data,callback)
+{
+	viewAttendanceSheet(data,function(err,result){
+		if(err) console.log({'err_msg':'error in getting the attendance'},result);
+		else{
+			var att_details = result;
+			var safe_list_index = [];
+			var total_number_of_classes = att_details['total_number_of_classes'];
+			//console.log(Object.keys(att_details['admission']).length);
+			for(var i=0; i<Object.keys(att_details['admission']).length;i++)
+			{
+				var num_presents = total_number_of_classes - att_details['admission'][i]['absents'];
+				var percent_att = (num_presents*100)/total_number_of_classes;
+				console.log(i);
+				console.log(percent_att);
+				if(percent_att >= 75.0)
+				{
+					safe_list_index.push(i);
+				}
+			}
+			console.log(safe_list_index);
+			for(var i=0;i<safe_list_index.length;i++)
+			{
+				delete att_details['stu_name'][safe_list_index[i]];
+				delete att_details['admission'][safe_list_index[i]];
+			}
+			//console.log(att_details);
+			callback(err,att_details);
+		}
+	});
+}
+
 
 var empAttendanceModel = {
-	getSubjectsMappedToEmployee : getSubjectsMappedToEmployee,	
+	getSubjectsMappedToEmployee : getSubjectsMappedToEmployee,
+	getDefaulterList : getDefaulterList,	
 	viewAttendanceSheet : viewAttendanceSheet
 };
 

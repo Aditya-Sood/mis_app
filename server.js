@@ -25,20 +25,34 @@ app.all('/*', function(req, res, next) {
 });
 
 
-// Auth Middleware - This will check if the token is valid
-// Only the requests that start with /api/v1/* will be checked for the token.
-// Any URL's that do not follow the below pattern should be avoided unless you 
-// are sure that authentication is not needed
-app.all('/api/v1/*',[require('./middlewares/validateRequest')]);
+try{
+  // Auth Middleware - This will check if the token is valid
+  // Only the requests that start with /api/v1/* will be checked for the token.
+  // Any URL's that do not follow the below pattern should be avoided unless you 
+  // are sure that authentication is not needed
+  app.all('/api/v1/*',[require('./middlewares/validateRequest')]);
 
-app.use('/', require('./routes/index.js'));
+  app.use('/', require('./routes/index.js'));
 
-// If no route is matched by now, it must be a 404
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+  //handling any uncaught exception to prevent server crash
+  process.on('uncaughtException',function(err){
+    console.log(err);
+  });
+
+  // If no route is matched by now, it must be a 404
+  app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+}catch (err) {
+  res.status(500);
+  res.json({
+    "status": 500,
+    "message": "Oops something went wrong",
+    "error": "Unauthorized access"
+  });
+}
 
 // Start the server
 app.set('port', process.env.PORT || 3000);
