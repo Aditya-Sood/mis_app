@@ -5,6 +5,7 @@ hmap.set('user_table','users');
 hmap.set('user_details_table','user_details');
 hmap.set('user_other_details_table','user_other_details');
 hmap.set('user_address_table','user_address');
+hmap.set('user_login_attempts_table','user_login_attempts');
 
 hmap.set('employee_basic_details_table','emp_basic_details');
 hmap.set('employee_education_details_table','emp_education_details');
@@ -48,6 +49,9 @@ hmap.set('honour_minor_details_table','hm_minor_details');
 hmap.set('student_section_data_table','stu_section_data');
 hmap.set('reg_other_subjects_table','reg_other_subject');
 hmap.set('reg_other_form_table','reg_other_form');
-hmap.set('attendance_remark_table','attendance_remark_table')
+hmap.set('attendance_remark_table','attendance_remark_table');
+
+hmap.set('emp_validations_details_table','emp_validation_details');
+hmap.set('stu_id_status_details_table','stu_id_status_details');
 
 module.exports = hmap;

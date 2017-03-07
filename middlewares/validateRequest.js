@@ -34,7 +34,7 @@ module.exports = function(req, res, next) {
       var pathname = url_parts.pathname;
       var pathname_parts = pathname.split('/');
       var module_name = pathname_parts[3];
-      var function_name = pathname_parts[4];
+      var function_name = pathname_parts[4]||'';
 
       var auth_file_path = 'controllers/'+module_name+'/'+'authorization';
       var auth = require(auth_file_path);

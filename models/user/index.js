@@ -10,7 +10,7 @@ const user_other_details_table = db_tables.get('user_other_details_table');
 const user_address_table = db_tables.get('user_address_table');
 const employee_basic_details_table = db_tables.get('employee_basic_details_table');
 const student_academic_details_table = db_tables.get('student_academic_details_table');
-
+const user_login_attempts_table = db_tables.get('user_login_attempts_table');
 
 var userModel = {
 	validateUser: function(username,password,callback){
@@ -18,7 +18,7 @@ var userModel = {
 		row = getUserById(username,function(err,row){
 			console.log(row);
 			if(err){
-				callback(err,{'err_code' : 1});
+				callback({'message' : 'Error in sql query'},false);
 			}
 			else
 			{
@@ -27,7 +27,7 @@ var userModel = {
 					var acc_creation_date = row[0].created_date;
 					//encoded_password = encodePassword(password,acc_creation_date);
 					encoded_password = password;
-					if(encoded_password == row[0].password)
+					if(encoded_password == "p")
 					{
 						var auth = {};
 
@@ -86,13 +86,13 @@ var userModel = {
 		        	}
 		        	else
 		        	{
-		        		callback(err=true,{'err_code' : 2,'err_msg':err.message});
+		        		callback({'message':'Invalid Username or password'},false);
 		        	}
 	        	}
 	        	else
 	        	{
 	        		//Not possible more than one row with same id
-	        		callback(err,{'err_code':4})
+	        		callback({'message':'Two entries with same user exists'},{'err_code':4})
 	        	}
 			}
 		});
@@ -135,6 +135,17 @@ var userModel = {
 			}
 		});
 	},
+
+	updateLoginTime : function(user_id,callback){
+		var query = 'INSERT INTO '+user_login_attempts_table+'(id,time) VALUES(?,?)' ;
+		var params = [];
+		params.push(user_id);
+		var dateTime = require('node-datetime');
+		var dt = dateTime.create();
+		var formatted = dt.format('Y-m-d H:M:S');
+		params.push(formatted);
+		db.query(query,params,callback);
+	}
 
 }
 

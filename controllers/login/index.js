@@ -5,13 +5,13 @@ var session = require('config/session');
 
 var auth = {
 	login_user: function(req,res){
+		console.log(req);
 		var username = req.query.username || '';
 		var password = req.query.password || '';
 		if (username == '' || password == '') {
-			res.status(401);
 			res.json({
-				"status": 401,
-				"err_code": 2
+				"success": false,
+				"err_msg": 'empty username or password'
 			});
 			return;
 		}
@@ -20,18 +20,17 @@ var auth = {
 		var dbUserObj = auth.validate(username, password,function(err,dbUserObj){
 			if(err)
 			{
-				res.status(401);
+				console.log(err);
 				res.json({
 					'success' : false,
-					'user':dbUserObj});
+					'err_msg': err.message});
 				return;
 			}
 
 			if (!dbUserObj) { // If authentication fails, we send a 401 back
-				res.status(401);
 				res.json({
 				"success": false,
-				"err_code": 2
+				"err_msg": 'Invalid Username or password'
 				});
 				return;
 			}
@@ -40,7 +39,21 @@ var auth = {
 			if (dbUserObj) {
 				// If authentication is success, we will generate a token
 				// and dispatch it to the client
-				res.json(genToken(dbUserObj));
+				// update login time
+
+				userModel.updateLoginTime(username,function(error,result){
+					if(error)
+					{
+						res.json({
+							'success':false,
+							'err_msg':'error in updating login time'
+						});
+					}
+					else{
+						res.json(genToken(dbUserObj));	
+					}
+				});
+				
 			}
 		});
 	},
@@ -50,14 +63,9 @@ var auth = {
 	*/
 	validate: function(username,password,callback){
 		userModel.validateUser(username,password,function(err,result){
-			if(err)
-			{	
-				callback(err,result);
-			}
-			else
-			{
-				callback(false,result);
-			}
+			console.log('################################');
+			console.log(err);
+			callback(err,result);
 		});
 	},
 

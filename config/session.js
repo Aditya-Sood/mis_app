@@ -90,6 +90,10 @@ Session.prototype = {
 		return this.payload.user.auth['1'];
 	},
 
+	getEmpType: function(){
+		return this.payload.user.auth['2'];
+	},
+
 	getDeptId: function(){
 		return this.payload.user.dept_id;
 	}

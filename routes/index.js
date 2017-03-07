@@ -22,5 +22,7 @@ router.use(BASE_PATH+'editdetails',controllers.editdetailsController);
 router.use(BASE_PATH+'viewdetails',controllers.viewdetailsController);
 router.use(BASE_PATH+'coursestructure',controllers.coursestructureController);
 router.use(BASE_PATH+'attendance',controllers.attendanceController);
+router.use(BASE_PATH+'menu',controllers.menuController);
+
 
 module.exports = router;
