@@ -26,8 +26,8 @@ var personal_details={},family_details,address_details,education_details,bank_de
 var user_details,user_address_details,student_details;
 
 var studentDetails = {
-	getAllDetails : function(adm_no,callback){
-		initializeVariables(adm_no,function(err,result){
+	getAllDetails : function(adm_no,dept_id,callback){
+		initializeVariables(adm_no,dept_id,function(err,result){
 			if(err)
 			{
 				callback(err,result);
@@ -128,9 +128,9 @@ function getAddressDetails(){
 }
 
 function getEducationalDetails(){
-	education_details = {};
+	education_details = [];
 	education_details_X = {};
-	education_details_XII = {};
+/*	education_details_XII = {};
 
 	education_details_X['exam'] = student_details[0]['exam'];
 	education_details_X['branch'] = student_details[0]['branch'];
@@ -149,6 +149,19 @@ function getEducationalDetails(){
 
 	education_details['X'] = education_details_X;
 	education_details['XII'] = education_details_XII;
+*/
+	for(var i=0;i<student_details.length;i++)
+	{
+		education_details_X['exam'] = student_details[0]['exam'];
+		education_details_X['branch'] = student_details[0]['branch'];
+		education_details_X['institute'] = student_details[0]['institute'];
+		education_details_X['year'] = student_details[0]['year'];
+		education_details_X['grade'] = student_details[0]['grade'];
+		education_details_X['division'] = student_details[0]['division'];
+		education_details_X['specialization'] = student_details[0]['specialization'];
+
+		education_details.push(education_details_X)		
+	}
 
 //	callback(err=null,education_details);
 
@@ -190,7 +203,7 @@ function getFeeDetails(){
 	//callback(err=null,fee_details);
 }
 
-function initializeVariables(adm_no,callback){
+function initializeVariables(adm_no,dept_id,callback){
 
 
 	//getting user details without address
@@ -214,7 +227,7 @@ function initializeVariables(adm_no,callback){
 					user_address_details = result;
 
 					//getting student details
-					getStudentDetailsById(adm_no,function(err,result){
+					getStudentDetailsById(adm_no,dept_id,function(err,result){
 						if(err)
 						{
 							callback(err,{'err_code':6,'err_msg':err.message});
@@ -245,7 +258,7 @@ function getFullName(first_name,middle_name,last_name)
 	}
 }
 
-function getStudentDetailsById(stu_id,callback){
+function getStudentDetailsById(stu_id,dept_id,callback){
 	var query = "SELECT * FROM "+student_details_table+","+student_other_details_table+","+student_academic_details_table+","+student_fee_details_table+","+student_education_details_table+" WHERE stu_details.admn_no = stu_other_details.admn_no AND stu_details.admn_no=stu_admn_fee.admn_no AND stu_details.admn_no = stu_academic.admn_no AND stu_details.admn_no = stu_prev_education.admn_no AND stu_details.admn_no=?";
 	var params = [];
 	params.push(stu_id);
@@ -257,7 +270,7 @@ function getStudentDetailsById(stu_id,callback){
 		}
 		else
 		{
-			gen_api.getDepartmentNameById(result[0].branch_id,function(err,result1){
+			gen_api.getDepartmentNameById(dept_id,function(err,result1){
 				//console.log(result);
 				if(err)
 				{
@@ -272,7 +285,7 @@ function getStudentDetailsById(stu_id,callback){
 						}else
 						{
 							result[0]['course'] = result2.name;
-							gen_api.getDepartmentNameById(result[0].branch_id,function(err,result3){
+							gen_api.getBranchNameById(result[0].branch_id,function(err,result3){
 								if(err)
 								{
 									callback(err,{'err_code':6,'err_msg':err.message});

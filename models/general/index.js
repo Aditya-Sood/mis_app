@@ -8,6 +8,7 @@ var db_tables = require('helper/db_tables');
 
 var department_table = db_tables.get('department_table');
 var course_table = db_tables.get('course_table');
+var branch_table = db_tables.get('branch_table');
 var db = require('config/db');
 
 var api = {
@@ -53,7 +54,7 @@ var api = {
 	{
 		var query = "SELECT * FROM "+branch_table+" WHERE id = ?";
 		var params = [];
-		params.push(course_id);
+		params.push(branch_id);
 
 		db.query(query,params,function(err,result){
 			if(err)

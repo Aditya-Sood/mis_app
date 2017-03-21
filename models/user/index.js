@@ -91,8 +91,14 @@ var userModel = {
 	        	}
 	        	else
 	        	{
-	        		//Not possible more than one row with same id
-	        		callback({'message':'Two entries with same user exists'},{'err_code':4})
+	        		if(row.length ==0)
+	        		{
+	        			callback({'message':'User Not found'},{'err_code':4})
+	        		}	
+	        		else{
+	        			//Not possible more than one row with same id
+	        			callback({'message':'Two entries with same user exists'},{'err_code':4})
+	        		}
 	        	}
 			}
 		});

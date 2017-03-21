@@ -5,7 +5,6 @@ var session = require('config/session');
 
 var auth = {
 	login_user: function(req,res){
-		console.log(req);
 		var username = req.query.username || '';
 		var password = req.query.password || '';
 		if (username == '' || password == '') {

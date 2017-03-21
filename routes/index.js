@@ -23,6 +23,6 @@ router.use(BASE_PATH+'viewdetails',controllers.viewdetailsController);
 router.use(BASE_PATH+'coursestructure',controllers.coursestructureController);
 router.use(BASE_PATH+'attendance',controllers.attendanceController);
 router.use(BASE_PATH+'menu',controllers.menuController);
-
+//router.use(BASE_PATH+'information',controllers.informationController);
 
 module.exports = router;

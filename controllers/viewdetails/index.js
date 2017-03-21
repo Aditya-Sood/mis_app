@@ -20,6 +20,7 @@ viewDetails.get('/',function(req,res){
 		}
 	});
 
+	var auth = session.getAuthId();
 	if(session.getAuthId() == 'stu')
 	{
 		viewDetailsModel = require('models/student/student_details');
@@ -29,15 +30,21 @@ viewDetails.get('/',function(req,res){
 		viewDetailsModel = require('models/employee/employee_details');
 	}
 	
-	viewDetailsModel.getAllDetails(session.getId(),function(err,result){
+	viewDetailsModel.getAllDetails(session.getId(),session.getDeptId(),function(err,result){
 		if(err)
 		{
-			res.status(401);
-			res.json(result);	
+			res.json({
+					'success':false,
+					'err_msg':'error in getting details'
+					});	
 		}
 		else
 		{
-			res.json(result);
+			res.json({
+				'success':true,
+				'auth':auth,
+				'details':result
+			});
 		}
 	});
 });
