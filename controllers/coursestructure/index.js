@@ -5,7 +5,7 @@
 //route for setting end points
 var courseStructure = require('express').Router();
 var courseStructureModel = require('models/coursestructure');
-
+var Session = require('config/session');
 
 /*
 *https://app.mis.com/api/v1/coursestructure/departments?access_token=?
@@ -93,7 +93,19 @@ courseStructure.get('/coursesdetails',function(req,res){
 *https://app.mis.com/api/v1/coursestructure/viewcourse?access_token=?&session=?&semester=?&branch_id=?&course=?&dept_id=?
 */
 courseStructure.get('/viewcourse',function(req,res){
-	var dept_id = req.query.dept_id;
+	var sessioN = new Session(req.query.access_token,function(err,result){
+		if(err)
+		{
+			res.status(401);
+			res.json({
+				"status":401,
+				"err_code":8,
+				"err_msg":'some problem in session'
+			});
+		}
+	});
+
+	var dept_id = sessioN.getDeptId();
 	var session = req.query.session;
 	var semester = req.query.semester;
 	var branch_id = req.query.branch_id;

@@ -24,13 +24,7 @@ viewDetails.get('/',function(req,res){
 	if(session.getAuthId() == 'stu')
 	{
 		viewDetailsModel = require('models/student/student_details');
-	}
-	else if(session.getAuthId() == 'emp')
-	{
-		viewDetailsModel = require('models/employee/employee_details');
-	}
-	
-	viewDetailsModel.getAllDetails(session.getId(),session.getDeptId(),function(err,result){
+		viewDetailsModel.getAllDetails(session.getId(),session.getDeptId(),function(err,result){
 		if(err)
 		{
 			res.json({
@@ -47,6 +41,29 @@ viewDetails.get('/',function(req,res){
 			});
 		}
 	});
+	}
+	else if(session.getAuthId() == 'emp')
+	{
+		viewDetailsModel = require('models/employee/employee_details');
+		viewDetailsModel.getAllDetails(session.getId(),function(err,result){
+		if(err)
+		{
+			res.json({
+					'success':false,
+					'err_msg':'error in getting details'
+					});	
+		}
+		else
+		{
+			res.json({
+				'success':true,
+				'auth':auth,
+				'details':result
+			});
+		}
+	});
+	}
+	
 });
 
 module.exports = viewDetails;

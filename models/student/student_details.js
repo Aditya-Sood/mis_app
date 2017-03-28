@@ -153,7 +153,6 @@ function getEducationalDetails(){
 	for(var i=0;i<student_details.length;i++)
 	{
 		education_details_X['exam'] = student_details[0]['exam'];
-		education_details_X['branch'] = student_details[0]['branch'];
 		education_details_X['institute'] = student_details[0]['institute'];
 		education_details_X['year'] = student_details[0]['year'];
 		education_details_X['grade'] = student_details[0]['grade'];

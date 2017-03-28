@@ -10,7 +10,7 @@ var hmap = new HashMap();
 hmap.set('/departments',[]);
 hmap.set('/courses',[]);
 hmap.set('/coursesdetails',[]);
-hmap.set('/viewcourse',['emp']);
+hmap.set('/viewcourse',[]);
 
 
 module.exports = hmap;

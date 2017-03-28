@@ -56,7 +56,7 @@ var employeeDetails = {
 											{
 												console.log("4");
 												details['stay'] = stay_details = result;
-												callback(null,details);
+												callback(false,details);
 											}
 											else
 											{
