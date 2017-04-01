@@ -222,6 +222,24 @@ function viewCourseStructure(data,callback1)
 				sem_list.forEach(function(sem){
 
 					if(course['cs_session']['dept_id'] == "comm"){
+						data['group'] = 1;
+						tasks.push(function(callback){
+							var counter = sem + '_' + data['group'];
+							getCourseDetails(counter,sem,aggr_id,0,function(err,result){
+								if(err) callback(err,result);
+								else{
+									console.log(result);
+									course['subjects']['group_details'][counter] = result['group_details'];
+									course['subjects']['subject_details'][counter] = result['subject_details'][counter];
+									course['subjects']['sequence_no'][counter] = result['sequence_no'][counter];
+									course['subjects']['count'][counter] = result['count'][counter];
+									course['subjects']['elective_count'][counter] = result['elective_count'];
+									callback();
+								}
+							});
+						});
+
+						data['group'] = 2;
 						tasks.push(function(callback){
 							var counter = sem + '_' + data['group'];
 							getCourseDetails(counter,sem,aggr_id,0,function(err,result){
@@ -326,7 +344,7 @@ function viewCourseStructure(data,callback1)
 						}
 					}
 				});
-				async.parallel(tasks,function(err,result){
+				async.series(tasks,function(err,result){
 					if(err) callback1(err,result);
 					else{
 						callback1(err,{

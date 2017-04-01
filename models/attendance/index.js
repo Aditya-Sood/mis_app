@@ -226,7 +226,7 @@ function getAttendanceDetails(data,callback)
 		    														if(result6.length > 0)
 		    														att_details['total_class'] = result6[0]['total_class'];
 		    														else
-		    														att_details['total_class'] = 'class not started';
+		    														att_details['total_class'] = -1;
 
 		    														subject_list.push(att_details);
 		    														callback();

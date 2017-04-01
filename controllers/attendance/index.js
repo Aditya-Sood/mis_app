@@ -24,14 +24,18 @@ attendance.get('/sessionyear',function(req,res){
 	attendanceModel.getSessionYear(adm_no,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"success":false,
 				"err_msg":err.message
 			});
 		}
 		else
-		res.json(result);
+		{
+			res.json({
+				"success":true,
+				"session_year":result
+			});
+		}
 	});
 });
 
@@ -51,14 +55,19 @@ attendance.get('/semester',function(req,res){
 	attendanceModel.getSemester(adm_no,req.query.sessionyear,req.query.session,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"success":false,
 				"err_msg":err.message
 			});
 		}
 		else
-		res.json(result);
+		{
+			res.json({
+				"success":true,
+				"semester":result
+			});
+		}
+		
 	});
 });
 
@@ -66,7 +75,6 @@ attendance.get('/subjectlist',function(req,res){
 	var session = new Session(req.query.access_token,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"status":401,
 				"err_code":8,
@@ -83,7 +91,6 @@ attendance.get('/subjectlist',function(req,res){
 	attendanceModel.getSubjectList(data,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"success":false,
 				"err_msg":err.message
@@ -105,7 +112,6 @@ attendance.get('/studentattendance',function(req,res){
 	var session = new Session(req.query.access_token,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"status":401,
 				"err_code":8,
@@ -122,7 +128,6 @@ attendance.get('/studentattendance',function(req,res){
 	attendanceModel.getAttendanceDetails(data,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"success":false,
 				"err_msg":err.message
@@ -144,7 +149,6 @@ attendance.get('/subjectattendance',function(req,res){
 	var session = new Session(req.query.access_token,function(err,result){
 		if(err)
 		{
-			res.status(401);
 			res.json({
 				"status":401,
 				"err_code":8,
@@ -160,7 +164,6 @@ attendance.get('/subjectattendance',function(req,res){
 
 	attendanceModel.getDetailedAttendanceOfSubject(data,function(err,result){
 		if(err){
-			res.status(401);
 			res.json({
 				"success":false,
 				"err_msg":err.message
