@@ -11,6 +11,7 @@
   "dependencies": {
     "app-module-path": "^2.1.0",
     "body-parser": "^1.15.2",
+    "date-and-time": "^0.4.0",
     "express": "^4.14.0",
     "jwt-simple": "^0.5.0",
     "morgan": "^1.7.0"
