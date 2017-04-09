@@ -514,7 +514,7 @@ postDetails.get('/getnewminutecount',function(req,res){
 });
 
 
-postDetails.get('/counts',function(req,res){
+/*postDetails.get('/counts',function(req,res){
 	var session = new Session(req.query.access_token,function(err,result){
 		if(err)
 		{
@@ -548,25 +548,6 @@ postDetails.get('/counts',function(req,res){
 				data['semester'] = result[0]['semester'];
 				var async_tasks = [];
 				var new_notice_count = 0,new_circular_count =0 ,new_minutes_count =0;
-				async_tasks.push(function(callback){
-					circularModel.getNewCircularCount(data,function(err,result){
-						if(!err) new_circular_count = result['count'];
-						callback(err,result);
-					});
-				});
-				async_tasks.push(function(callback){
-					minuteModel.getNewMinuteCount(data,function(err,result){
-						if(!err) new_minutes_count = result['count'];
-						callback(err,result) 
-					});
-				})
-
-				async_tasks.push(function(callback){
-					noticeModel.getNewNoticeCount(data,function(err,result){
-						if(!err) new_notice_count = result['count'];
-						callback(err,result);
-					});
-				});
 				
 				async.parallel(async_tasks,function(err,result){
 					if(err) {
@@ -578,9 +559,7 @@ postDetails.get('/counts',function(req,res){
 					else{
 						res.json({
 							'success':true,
-							'new_notice_count':new_notice_count,
-							'new_circular_count':new_circular_count,
-							'new_minutes_count':new_minutes_count
+							
 						});
 					}
 				});
@@ -593,26 +572,7 @@ postDetails.get('/counts',function(req,res){
 		
 		var async_tasks = [];
 		
-		var new_notice_count = 0,new_circular_count =0 ,new_minutes_count =0;
-		async_tasks.push(function(callback){
-			circularModel.getNewCircularCount(data,function(err,result){
-				if(!err) new_circular_count = result['count'];
-				callback(err,result);
-			});
-		});
-		async_tasks.push(function(callback){
-			minuteModel.getNewMinuteCount(data,function(err,result){
-				if(!err) new_minutes_count = result['count'];
-				callback(err,result) 
-			});
-		})
-
-		async_tasks.push(function(callback){
-			noticeModel.getNewNoticeCount(data,function(err,result){
-				if(!err) new_notice_count = result['count'];
-				callback(err,result);
-			});
-		});
+		
 		
 		async.parallel(async_tasks,function(err,result){
 			if(err) {
@@ -624,14 +584,12 @@ postDetails.get('/counts',function(req,res){
 			else{
 				res.json({
 					'success':true,
-					'new_notice_count':new_notice_count,
-					'new_circular_count':new_circular_count,
-					'new_minutes_count':new_minutes_count
+					
 				});
 			}
 		});
 	}
-});
+});*/
 
 
 postDetails.get('/postdetails',function(req,res){
@@ -668,6 +626,29 @@ postDetails.get('/postdetails',function(req,res){
 				data['semester'] = result[0]['semester'];
 				var async_tasks = [];
 				var notices,circulars,minutes;
+				var new_notice_count = 0,new_circular_count =0 ,new_minutes_count =0;
+
+				async_tasks.push(function(callback){
+					circularModel.getNewCircularCount(data,function(err,result){
+						if(!err) new_circular_count = result['count'];
+						callback(err,result);
+					});
+				});
+				async_tasks.push(function(callback){
+					minuteModel.getNewMinuteCount(data,function(err,result){
+						if(!err) new_minutes_count = result['count'];
+						callback(err,result) 
+					});
+				})
+
+				async_tasks.push(function(callback){
+					noticeModel.getNewNoticeCount(data,function(err,result){
+						if(!err) new_notice_count = result['count'];
+						callback(err,result);
+					});
+				});
+				
+		
 				async_tasks.push(function(callback){
 					circularModel.getCirculars(data,function(err,result){
 						if(!err) circulars = result;
@@ -700,7 +681,10 @@ postDetails.get('/postdetails',function(req,res){
 							'success':true,
 							'notices':notices,
 							'circulars':circulars,
-							'minutes':minutes
+							'minutes':minutes,
+							'new_notice_count':new_notice_count,
+							'new_circular_count':new_circular_count,
+							'new_minutes_count':new_minutes_count
 						});
 					}
 				});
@@ -713,6 +697,27 @@ postDetails.get('/postdetails',function(req,res){
 		
 		var async_tasks = [];
 		var notices,circulars,minutes;
+		var new_notice_count = 0,new_circular_count =0 ,new_minutes_count =0;
+
+		async_tasks.push(function(callback){
+			circularModel.getNewCircularCount(data,function(err,result){
+				if(!err) new_circular_count = result['count'];
+				callback(err,result);
+			});
+		});
+		async_tasks.push(function(callback){
+			minuteModel.getNewMinuteCount(data,function(err,result){
+				if(!err) new_minutes_count = result['count'];
+				callback(err,result) 
+			});
+		})
+
+		async_tasks.push(function(callback){
+			noticeModel.getNewNoticeCount(data,function(err,result){
+				if(!err) new_notice_count = result['count'];
+				callback(err,result);
+			});
+		});
 		async_tasks.push(function(callback){
 			circularModel.getCirculars(data,function(err,result){
 				if(!err) circulars = result;
@@ -745,7 +750,10 @@ postDetails.get('/postdetails',function(req,res){
 					'success':true,
 					'notices':notices,
 					'circulars':circulars,
-					'minutes':minutes
+					'minutes':minutes,
+					'new_notice_count':new_notice_count,
+					'new_circular_count':new_circular_count,
+					'new_minutes_count':new_minutes_count
 				});
 			}
 		});
