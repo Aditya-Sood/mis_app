@@ -89,7 +89,7 @@ var auth = {
 
 function genToken(user) {
 	delete user.password;
-
+	console.log(user);
 	var expires = expiresIn(specs.get('TOKEN_EXPIRE_TIME')); // 1 minute(approx.) == 0.0006 days
 	var secret;
 	var token = jwt.encode({
@@ -98,11 +98,21 @@ function genToken(user) {
 	}, require('config/secret.js')());
 	return {
 		'success':true,
+		'name':getName(user.first_name,user.middle_name,user.last_name),
+		'email':user.email,
+		'pic_path':user.photopath,
 		token: token,
 		expires: expires
 	};
 }
 
+function getName(first_name,middle_name,last_name)
+{
+	if(middle_name.length == 0)
+		return first_name+" "+last_name;
+	else
+		return first_name+" "+middle_name+" "+last_name;
+}
 
 function expiresIn(numDays) {
 	var dateObj = new Date();
