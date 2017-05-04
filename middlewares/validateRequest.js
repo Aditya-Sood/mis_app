@@ -20,10 +20,8 @@ module.exports = function(req, res, next) {
       console.log(decoded);
  
       if (decoded.exp <= Date.now()) {
-        res.status(400);
         res.json({
           "success":false,
-          "status": 400,
           "message": "Token Expired"
         });
         next();

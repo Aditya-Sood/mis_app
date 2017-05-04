@@ -154,7 +154,9 @@ function menuData(callback)
 					  '5':'course_structure',
 					  '6':'view_course_structure',
 					  '7':'attendance',
-					  '8':'view_attendance'
+					  '8':'view_attendance',
+					  '9':'others',
+					  '10':'logout'
 					  };
 
 	modules['emp'] = {'1':'home',
@@ -165,7 +167,9 @@ function menuData(callback)
 					  '6':'view_course_structure',
 					  '7':'attendance',
 					  '8':'view_attendance',
-					  '9':'view_defaulter_list'};					  
+					  '9':'view_defaulter_list',
+					  '10':'others',
+					  '11':'logout'};					  
 
 	modules['deo'] = {'1':'home',
 					  '2':'user_details',
@@ -175,6 +179,8 @@ function menuData(callback)
 					  '6':'view_course_structure',
 					  '7':'attendance',
 					  '8':'view_attendance',
+					  '9':'others',
+					  '10':'logout'
 					  };
 
 	callback(false,modules);
