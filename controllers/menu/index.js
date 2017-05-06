@@ -166,7 +166,7 @@ function menuData(callback)
 					  '5':'course_structure',
 					  '6':'view_course_structure',
 					  '7':'attendance',
-					  '8':'view_attendance',
+					  '8':'generate_attendance_sheet',
 					  '9':'view_defaulter_list',
 					  '10':'others',
 					  '11':'logout'};					  

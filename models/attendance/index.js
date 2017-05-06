@@ -16,12 +16,19 @@ var total_class_table = db_tables.get('total_class_table');
 var class_engaged_table = db_tables.get('class_engaged_table');
 
 
-function getSessionYear(adm_no,callback)
+function getSessionYearForStu(adm_no,callback)
 {
 	var query = "SELECT DISTINCT session_year FROM "+ reg_regular_form_table + " AS reg WHERE reg.admn_no = ?";
 
 	var params = [];
 	params.push(adm_no);
+	db.query(query,params,callback);
+}
+
+function getSessionYearForEmp(id,callback){
+	var query = "SELECT DISTINCT session_year FROM subject_mapping_des AS A INNER JOIN subject_mapping AS B ON A.map_id = B.map_id WHERE emp_no = ? ORDER BY session_year";
+	var params = [];
+	params.push(id);
 	db.query(query,params,callback);
 }
 
@@ -311,7 +318,8 @@ function detailedAttendanceOfSubject(data,callback)
 
 
 var attendance = {
-	getSessionYear : getSessionYear,
+	getSessionYearForStu : getSessionYearForStu,
+	getSessionYearForEmp : getSessionYearForEmp,
 	getSemester : getSemester,
 	getSubjectList : getSubjectList,
 	getAttendanceDetails :  getAttendanceDetails,

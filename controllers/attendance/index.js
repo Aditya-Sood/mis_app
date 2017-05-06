@@ -20,23 +20,45 @@ attendance.get('/sessionyear',function(req,res){
 			});
 		}
 	});
-	var adm_no = session.getId();
-	attendanceModel.getSessionYear(adm_no,function(err,result){
-		if(err)
-		{
-			res.json({
-				"success":false,
-				"err_msg":err.message
-			});
-		}
-		else
-		{
-			res.json({
-				"success":true,
-				"session_year":result
-			});
-		}
-	});
+	var id = session.getId();
+	var auth_id = session.getAuthId();
+	if(auth_id == 'stu'){
+		attendanceModel.getSessionYearForStu(id,function(err,result){
+			if(err)
+			{
+				res.json({
+					"success":false,
+					"err_msg":err.message
+				});
+			}
+			else
+			{
+				res.json({
+					"success":true,
+					"session_year":result
+				});
+			}
+		});		
+	}
+	else{
+		attendanceModel.getSessionYearForEmp(id,function(err,result){
+			if(err)
+			{
+				res.json({
+					"success":false,
+					"err_msg":err.message
+				});
+			}
+			else
+			{
+				res.json({
+					"success":true,
+					"session_year":result
+				});
+			}
+		});	
+	}
+	
 });
 
 attendance.get('/semester',function(req,res){
@@ -180,6 +202,7 @@ attendance.get('/subjectattendance',function(req,res){
 
 //This is for teacher that can see attendance of all students
 attendance.get('/subjectattendanceall',function(req,res){
+	var data = [];
 	data['adm_no'] = req.query.adm_no;
 	data['sub_id'] = req.query.sub_id;
 	data['map_id'] = req.query.map_id;
