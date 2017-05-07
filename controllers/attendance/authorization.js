@@ -11,5 +11,7 @@ hmap.set('/subjectmapped',['emp']);
 hmap.set('/viewattendancesheet',['emp']);
 hmap.set('/subjectattendanceall',['emp']);
 hmap.set('/getdefaulterlist',['emp']);
+hmap.set('/getsubjectscommon',['emp']);
+hmap.set('/getsectionscommon',['emp']);
 
 module.exports = hmap;

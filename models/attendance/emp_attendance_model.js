@@ -719,11 +719,35 @@ function getDefaulterList(data,callback)
 	});
 }
 
+function getSubjectsCommon(data,callback){
+	var query = "SELECT S.subject_id as s_id, name, newt.sub_id as n_id, newt.semester FROM (SELECT session,session_year,sub_id, B.course_id, semester, emp_no, A.map_id FROM subject_mapping_des AS A INNER JOIN subject_mapping AS B ON A.map_id = B.map_id) AS newt INNER JOIN subjects AS S ON S.id = newt.sub_id WHERE newt.emp_no = ? AND session=? and newt.course_id='comm' AND session_year=? AND (semester='1' OR semester='2')"
+	params = [];
+	params.push(data['emp_id']);
+	params.push(data['session']);
+	params.push(data['session_year']);
+	db.query(query,params,callback);
+}
+
+function getSectionCommon(data,callback){
+	getMapId(data,function(err,result){
+		if(err) callback(err,result)
+		else{
+			console.log(result);
+			var map_id = result[0]['map_id'];
+			var query = "SELECT section FROM subject_mapping WHERE map_id = ?";
+			var params = [];
+			params.push(map_id);
+			db.query(query,params,callback);
+		}
+	});
+}
 
 var empAttendanceModel = {
 	getSubjectsMappedToEmployee : getSubjectsMappedToEmployee,
 	getDefaulterList : getDefaulterList,	
-	viewAttendanceSheet : viewAttendanceSheet
+	viewAttendanceSheet : viewAttendanceSheet,
+	getSubjectsCommon : getSubjectsCommon,
+	getSectionCommon : getSectionCommon
 };
 
 module.exports = empAttendanceModel;
