@@ -381,7 +381,7 @@ function getStudentHonour(data,callback)
 
 function getStudentComm(data,callback)
 {
-	var query = "SELECT admn_no FROM "+reg_regular_form_table + " AS t1 JOIN "+student_section_data_table+" AS t2 WHERE t1.admn_no = t2.admn_no AND t1.hod_status = '1' AND t1.acad_status = '1' AND t1.session_year = ? AND t1.session = ? AND t1.semester=? AND t2.section = ?";
+	var query = "SELECT t1.admn_no FROM "+reg_regular_form_table + " AS t1 JOIN "+student_section_data_table+" AS t2 WHERE t1.admn_no = t2.admn_no AND t1.hod_status = '1' AND t1.acad_status = '1' AND t1.session_year = ? AND t1.session = ? AND t1.semester=? AND t2.section = ?";
 	var params = [];
 	params.push(data['session_year']);
 	params.push(data['session']);
@@ -635,7 +635,10 @@ function viewAttendanceSheet(data,callback)
 				});
 
 				async.parallel(async_tasks,function(err,result){
-					if(err) callback(err,result);
+					if(err){
+						console.log("HERERERERERERER");
+					 callback(err,result);
+					}
 					else{
 						getDateOfClass(data,function(err,result){
 							if(err) callback(err,result);
@@ -747,7 +750,8 @@ var empAttendanceModel = {
 	getDefaulterList : getDefaulterList,	
 	viewAttendanceSheet : viewAttendanceSheet,
 	getSubjectsCommon : getSubjectsCommon,
-	getSectionCommon : getSectionCommon
+	getSectionCommon : getSectionCommon,
+	getStudentCommon :getStudentComm
 };
 
 module.exports = empAttendanceModel;
