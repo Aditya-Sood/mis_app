@@ -149,38 +149,34 @@ function menuData(callback)
 
 	modules['stu'] = {'1':'home',
 					  '2':'user_details',
-					  '3':'edit_details',
-					  '4':'view_details',
-					  '5':'course_structure',
-					  '6':'view_course_structure',
-					  '7':'attendance',
-					  '8':'view_attendance',
-					  '9':'others',
-					  '10':'logout'
+					  '3':'view_details',
+					  '4':'course_structure',
+					  '5':'view_course_structure',
+					  '6':'attendance',
+					  '7':'view_attendance',
+					  '8':'others',
+					  '9':'logout'
 					  };
 
 	modules['emp'] = {'1':'home',
 					  '2':'user_details',
-					  '3':'edit_details',
-					  '4':'view_details',
-					  '5':'course_structure',
-					  '6':'view_course_structure',
-					  '7':'attendance',
-					  '8':'generate_attendance_sheet',
-					  '9':'view_defaulter_list',
-					  '10':'others',
-					  '11':'logout'};					  
+					  '3':'view_details',
+					  '4':'course_structure',
+					  '5':'view_course_structure',
+					  '6':'attendance',
+					  '7':'generate_attendance_sheet',
+					  '8':'others',
+					  '9':'logout'};					  
 
 	modules['deo'] = {'1':'home',
 					  '2':'user_details',
-					  '3':'edit_details',
-					  '4':'view_details',
-					  '5':'course_structure',
-					  '6':'view_course_structure',
-					  '7':'attendance',
-					  '8':'view_attendance',
-					  '9':'others',
-					  '10':'logout'
+					  '3':'view_details',
+					  '4':'course_structure',
+					  '5':'view_course_structure',
+					  '6':'attendance',
+					  '7':'view_attendance',
+					  '8':'others',
+					  '9':'logout'
 					  };
 
 	callback(false,modules);

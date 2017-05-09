@@ -27,6 +27,7 @@ var userModel = {
 					var acc_creation_date = row[0].created_date;
 					//encoded_password = encodePassword(password,acc_creation_date);
 					encoded_password = password;
+					//encoded_password == row[0].password
 					if(encoded_password == "p")
 					{
 						var auth = {};
